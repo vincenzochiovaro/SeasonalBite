@@ -1,1 +1,1 @@
-# SeasonalBite v1
+# SeasonalBite v1.0
