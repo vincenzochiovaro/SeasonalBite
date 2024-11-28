@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeasonalBite", "SeasonalBite.csproj", "{328DF4BF-3D0D-448D-A600-4420004A5E08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeasonalBiteUnitTests", "SeasonalBiteUnitTests\SeasonalBiteUnitTests.csproj", "{45578478-C858-4590-99AF-30EA67A46D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{328DF4BF-3D0D-448D-A600-4420004A5E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{328DF4BF-3D0D-448D-A600-4420004A5E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{328DF4BF-3D0D-448D-A600-4420004A5E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45578478-C858-4590-99AF-30EA67A46D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45578478-C858-4590-99AF-30EA67A46D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45578478-C858-4590-99AF-30EA67A46D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45578478-C858-4590-99AF-30EA67A46D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -66,4 +66,28 @@
       <Folder Include="Services\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiXaml Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiCss Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AndroidAarLibrary Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="SeasonalBiteUnitTests\**" />
+    </ItemGroup>
+
 </Project>
