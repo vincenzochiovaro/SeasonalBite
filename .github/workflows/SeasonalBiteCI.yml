@@ -12,19 +12,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3  
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build the project
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Run tests
-        run: dotnet test
+    - name: Install MAUI Workloads
+      run: |
+        dotnet workload install maui-android
+        dotnet workload install maui-ios
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build the project
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Run tests
+      run: dotnet test
