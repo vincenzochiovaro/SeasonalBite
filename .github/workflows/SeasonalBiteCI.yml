@@ -39,4 +39,4 @@ jobs:
         dotnet build -f net8.0-maccatalyst --configuration Release
     
     - name: Run tests
-      run: dotnet test
+      run: dotnet test SeasonalBiteUnitTests/SeasonalBiteUnitTests.csproj -f net8.0
