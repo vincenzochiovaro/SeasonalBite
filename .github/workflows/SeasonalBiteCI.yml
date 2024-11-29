@@ -1,5 +1,4 @@
 name: SeasonalBite CI
-
 on:
   pull_request:
     branches:
@@ -7,29 +6,37 @@ on:
   push:
     branches:
       - main
-
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: macos-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v3  
-
+    
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '15.4'
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-
+    
     - name: Install MAUI Workloads
       run: |
         dotnet workload install maui-android
         dotnet workload install maui-ios
-        
+        dotnet workload install maui-maccatalyst
+    
     - name: Restore dependencies
       run: dotnet restore
-      
+    
     - name: Build the project
-      run: dotnet build --configuration Release --no-restore
-      
+      run: |
+        dotnet build -f net8.0-android --configuration Release
+        dotnet build -f net8.0-ios --configuration Release
+        dotnet build -f net8.0-maccatalyst --configuration Release
+    
     - name: Run tests
-      run: dotnet test
+      run: dotnet test SeasonalBiteUnitTests/SeasonalBiteUnitTests.csproj -f net8.0
