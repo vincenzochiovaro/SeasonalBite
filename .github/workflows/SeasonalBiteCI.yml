@@ -20,8 +20,14 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Install MAUI Workloads
+    - name: Install MAUI Android Workload
+      if: runner.os == 'Linux' || runner.os == 'Windows' 
       run: dotnet workload install maui-android
+
+    - name: Install MAUI iOS Workload
+      if: runner.os == 'macOS'
+      run: dotnet workload install maui-ios
+
         
     - name: Restore dependencies
       run: dotnet restore
