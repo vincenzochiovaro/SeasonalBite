@@ -14,8 +14,8 @@ pr:
    include:
      - main
 
-pool:
-  vmImage: windows-latest
+pool: Default
+  # vmImage: windows-latest
 
 steps:
 - task: UseDotNet@2
