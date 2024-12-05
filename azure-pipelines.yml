@@ -27,5 +27,11 @@ steps:
     packageType: 'sdk'
     version: $(dotnet_version)
    
-   
+- task: Bash@3
+  displayName: Install Maui Workloads
+  inputs:
+    targetType: 'inline'
+    script: |
+      dotnet nuget locals all --clear
+      dotnet workload install maui-android
 
