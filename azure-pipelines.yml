@@ -33,5 +33,6 @@ steps:
     targetType: 'inline'
     script: |
       dotnet nuget locals all --clear
-      dotnet workload install maui-android
+      dotnet workload install android ios maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+
 
