@@ -4,12 +4,25 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  batch: true
+  branches:
+    include:
+     - main
+
+pr:
+ branches:
+   include:
+     - main
 
 pool:
-  name: Default
+  name: Window Latest Pool 
+  vmImage: windows-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script Devops'
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: 8.x
+   
+   
 
