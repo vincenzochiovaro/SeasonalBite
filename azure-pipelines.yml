@@ -15,7 +15,6 @@ pr:
      - main
 
 pool:
-  name: Window Latest Pool 
   vmImage: windows-latest
 
 steps:
