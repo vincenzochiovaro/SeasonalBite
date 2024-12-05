@@ -14,14 +14,18 @@ pr:
    include:
      - main
 
+variables:
+  - group: SBite-PipelineVariables
+
 pool: Default
   # vmImage: windows-latest
 
 steps:
 - task: UseDotNet@2
+  displayName: Set Dotnet Version
   inputs:
     packageType: 'sdk'
-    version: 8.x
+    version: $(dotnet_version)
    
    
 
