@@ -45,7 +45,9 @@ steps:
   displayName: Build Windows MAUI app
   inputs:
     targetType: 'inline'
-    script: dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
+    script: |
+      dotnet restore SeasonalBite.csproj
+      dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Window app to artifacts
