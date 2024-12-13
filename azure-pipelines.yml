@@ -42,7 +42,7 @@ steps:
     script: 'ls'
 
 - task: Bash@3
-  displayName: Show Current working directory
+  displayName: Build Windows MAUI app
   inputs:
     targetType: 'inline'
     script: dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
