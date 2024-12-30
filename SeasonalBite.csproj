@@ -54,11 +54,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
+      <Folder Include="Helpers\" />
     </ItemGroup>
 
     <ItemGroup>
       <MauiXaml Remove="SeasonalBiteUnitTests\**" />
+      <MauiXaml Update="Views\MainPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -67,6 +70,10 @@
 
     <ItemGroup>
       <Compile Remove="SeasonalBiteUnitTests\**" />
+      <Compile Update="ViewModels\MainPage.xaml.cs">
+        <DependentUpon>MainPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
