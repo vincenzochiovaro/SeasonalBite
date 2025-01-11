@@ -1,6 +1,5 @@
 namespace SeasonalBiteUnitTests;
-
-public class UnitTest1
+public class CockroachDbRepositoryTests
 {
     [Fact]
     public void Test1()

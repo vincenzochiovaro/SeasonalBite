@@ -1,8 +1,9 @@
 using Npgsql;
+using SeasonalBite.Interfaces;
 
 namespace SeasonalBite.Data;
 
-public class CockroachDb
+public class CockroachDb : IDbManager
 {
     private string _connectionString;
 
@@ -15,10 +16,11 @@ public class CockroachDb
             throw new Exception("Connection string not found.");
         }
     }
-    
-    public NpgsqlConnection GetConnection()
+
+    public async Task<NpgsqlDataReader> ExecuteReader(string query)
     {
-        var connection = new NpgsqlConnection(_connectionString);
-        return connection;
+        var dataSource = NpgsqlDataSource.Create(_connectionString);
+        await using var command = dataSource.CreateCommand(query);
+        return await command.ExecuteReaderAsync();
     }
 }

@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
+using SeasonalBite.Data;
+using SeasonalBite.Interfaces;
+using SeasonalBite.Services;
 
 namespace SeasonalBite;
 
@@ -14,6 +18,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+        builder.Services.AddSingleton<IDbManager, CockroachDb>();
+        builder.Services.TryAddScoped<IAlimentRepository, CockroachDbRepository>();
+
+        builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<AppShell>();
 
 #if DEBUG
         builder.Logging.AddDebug();
