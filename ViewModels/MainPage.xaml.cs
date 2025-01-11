@@ -1,16 +1,21 @@
-﻿namespace SeasonalBite;
+﻿using SeasonalBite.Interfaces;
+
+namespace SeasonalBite;
 
 public partial class MainPage : ContentPage
 {
     int count = 0;
+    private readonly IAlimentRepository _alimentRepository;
 
-    public MainPage()
+    public MainPage(IAlimentRepository alimentRepository)
     {
         InitializeComponent();
+        _alimentRepository = alimentRepository;
     }
 
-    private void OnCounterClicked(object sender, EventArgs e)
+    private async void OnCounterClicked(object sender, EventArgs e)
     {
+        await _alimentRepository.GetAlimentsAsync(); // Todo
         count++;
 
         if (count == 1)
