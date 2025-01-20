@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+        <OutputType Condition="'$(TargetFramework)' == 'net8.0'">Library</OutputType>
+        <OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
-        <OutputType>Exe</OutputType>
         <RootNamespace>SeasonalBite</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
@@ -63,10 +64,12 @@
       <MauiXaml Update="Views\MainPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Remove="SeasonalBiteTests\**" />
     </ItemGroup>
 
     <ItemGroup>
       <MauiCss Remove="SeasonalBiteUnitTests\**" />
+      <MauiCss Remove="SeasonalBiteTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -75,10 +78,12 @@
         <DependentUpon>MainPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Remove="SeasonalBiteTests\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="SeasonalBiteUnitTests\**" />
+      <EmbeddedResource Remove="SeasonalBiteTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -87,6 +92,7 @@
 
     <ItemGroup>
       <None Remove="SeasonalBiteUnitTests\**" />
+      <None Remove="SeasonalBiteTests\**" />
     </ItemGroup>
 
 </Project>
