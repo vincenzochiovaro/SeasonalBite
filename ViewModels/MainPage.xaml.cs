@@ -5,17 +5,18 @@ namespace SeasonalBite;
 public partial class MainPage : ContentPage
 {
     int count = 0;
-    private readonly IAlimentRepository _alimentRepository;
+    private readonly IAlimentHelper _alimentHelper;
 
-    public MainPage(IAlimentRepository alimentRepository)
+    public MainPage(IAlimentHelper alimentHelper)
     {
         InitializeComponent();
-        _alimentRepository = alimentRepository;
+        _alimentHelper = alimentHelper;
     }
 
     private async void OnCounterClicked(object sender, EventArgs e)
     {
-        await _alimentRepository.GetAlimentsAsync(); // Todo
+        // todo
+        await _alimentHelper.FilterAlimentsInSeason(1); 
         count++;
 
         if (count == 1)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using SeasonalBite.Data;
+using SeasonalBite.Helpers;
 using SeasonalBite.Interfaces;
 using SeasonalBite.Services;
 
@@ -21,6 +22,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IDbManager, CockroachDb>();
         builder.Services.TryAddScoped<IAlimentRepository, CockroachDbRepository>();
+        builder.Services.TryAddScoped<IAlimentHelper, AlimentsHelper>();
 
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<AppShell>();
