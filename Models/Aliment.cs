@@ -11,5 +11,5 @@ public class Aliment
     public int ToMonthInt { get; set; }
     
     public string ImageUrl => $"{Name.ToLower().Replace(" ", "")}.png";
-    public string DateRange => $"From {FromMonth} To {ToMonth}";
+    public string DateRange => $"{FromMonth} To {ToMonth}";
 }
