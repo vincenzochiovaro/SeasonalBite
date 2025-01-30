@@ -4,7 +4,6 @@ namespace SeasonalBite;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
     private readonly IAlimentHelper _alimentHelper;
 
     public MainPage(IAlimentHelper alimentHelper)
@@ -13,17 +12,17 @@ public partial class MainPage : ContentPage
         _alimentHelper = alimentHelper;
     }
 
-    private async void OnCounterClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        // todo
-        await _alimentHelper.FilterAlimentsInSeason(1); 
-        count++;
+        base.OnAppearing();
+        await InitializeDataAsync();
+    }
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
+    private async Task InitializeDataAsync()
+    {
+        int currentMonth = DateTime.Now.Month;
+        var seasonAliments = await _alimentHelper.FilterAlimentsInSeason(currentMonth);
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        ListSeasonAliments.ItemsSource = seasonAliments;
     }
 }
