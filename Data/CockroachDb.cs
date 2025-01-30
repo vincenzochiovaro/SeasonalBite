@@ -9,8 +9,12 @@ public class CockroachDb : IDbManager
 
     public CockroachDb()
     {
-        _connectionString = Environment.GetEnvironmentVariable("COCKROACH_CONN_STR");
-
+        // _connectionString = Environment.GetEnvironmentVariable("COCKROACH_CONN_STR");
+        var foo =
+            "Host=seasonalbite-cluster-6350.j77.aws-eu-west-1.cockroachlabs.cloud;Username=vincenzo;Password=fYqicPFDBUdDs-Ni_LPJ5Q;Database=SeasonalBiteDB;Port=26257;";
+        
+        _connectionString = foo;
+        
         if (string.IsNullOrEmpty(_connectionString))
         {
             throw new Exception("Connection string not found.");
