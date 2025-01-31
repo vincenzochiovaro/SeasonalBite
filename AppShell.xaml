@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <Shell
     x:Class="SeasonalBite.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SeasonalBite"
-    Shell.FlyoutBehavior="Disabled"
-    Title="SeasonalBite">
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="SeasonalBite"
+        Title="{Binding ShellTitle}"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
