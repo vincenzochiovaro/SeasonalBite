@@ -17,7 +17,7 @@ pr:
 variables:
   - group: SBite-PipelineVariables
 
-pool: Default
+pool: Azure Pipelines
   # vmImage: windows-latest
 
 steps:
