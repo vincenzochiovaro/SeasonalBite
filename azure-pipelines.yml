@@ -17,40 +17,48 @@ pr:
 variables:
   - group: SBite-PipelineVariables
 
-pool:
-  vmImage: windows-latest
+stages:
+  - stage: windows_and_android_stage
+    displayName: Windows and Android stage
+    pool:
+      name: Azure Pipelines
+      vmImage: windows-latest
+    jobs:
+      - job: windows_job
+        displayName: Windows Job
+        steps:
+        - template: setup_template.yml
 
-steps:
-- task: UseDotNet@2
-  displayName: Set Dotnet Version
-  inputs:
-    packageType: 'sdk'
-    version: $(dotnet_version)
-   
-- task: Bash@3
-  displayName: Install Maui Workloads
-  inputs:
-    targetType: 'inline'
-    script: |
-      dotnet nuget locals all --clear
-      dotnet workload install android maui --source https://aka.ms/dotnet8/nuget/index.json --source https://api.nuget.org/v3/index.json
+        - task: Bash@3
+          displayName: Build Windows MAUI app
+          inputs:
+            targetType: 'inline'
+            script: |
+              dotnet restore SeasonalBite.csproj
+              dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
 
-- task: Bash@3
-  displayName: Show Current working directory
-  inputs:
-    targetType: 'inline'
-    script: 'ls'
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Window app to artifacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Windows' 
+            ArtifactName: 'Windows'
+            
+      - job: android_job
+        dependsOn: [windows_job]
+        displayName: Android Job
+        steps:
+        - template: setup_template.yml
 
-- task: Bash@3
-  displayName: Build Windows MAUI app
-  inputs:
-    targetType: 'inline'
-    script: |
-      dotnet restore SeasonalBite.csproj
-      dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
+        - task: Bash@3
+          displayName: Build Android MAUI app
+          inputs:
+            targetType: 'inline'
+            script: |
+              dotnet restore SeasonalBite.csproj
+              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android' 
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Window app to artifacts
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Windows' 
-    ArtifactName: 'Windows'
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Android app to artifacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
+            ArtifactName: 'Android'
