@@ -35,7 +35,7 @@ stages:
             targetType: 'inline'
             script: |
               dotnet restore SeasonalBite.csproj
-              dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
+              dotnet publish SeasonalBitePipelines/SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
 
         - task: PublishBuildArtifacts@1
           displayName: Publish Window app to artifacts
@@ -48,6 +48,19 @@ stages:
         displayName: Android Job
         steps:
         - template: setup_template.yml
+
+        - task: DownloadSecureFile@1
+          name: keystore_file
+          displayName: Download Keystore File
+          inputs:
+            secureFile: 'seasonalbite.keystore'
+
+        - task : CopyFiles@2
+          displayName: Import secure file
+          inputs:
+            SourceFolder: $(Agent.TempDirectory)
+            Contents: 'seasonalbite.keystore'
+            TargetFolder: $(Build.SourcesDirectory)
 
         - task: Bash@3
           displayName: Build Android MAUI app
