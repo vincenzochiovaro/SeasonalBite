@@ -55,7 +55,7 @@ stages:
           inputs:
             SourceFolder: $(Agent.TempDirectory)
             Contents: 'seasonalbite.keystore'
-            TargetFolder: $(Build.SourcesDirectory)
+            TargetFolder: SeasonalBite.csproj
 
         - task: Bash@3
           displayName: Build Android MAUI app
