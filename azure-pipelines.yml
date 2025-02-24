@@ -53,9 +53,17 @@ stages:
         - task: Bash@3
           displayName: Debug Secure File Path
           inputs:
+             targetType: 'inline'
+             script: |
+                  echo "Keystore path: '$(keystore_file.secureFilePath)'"
+                  ls -l "$(keystore_file.secureFilePath)"
+
+        - task: Bash@3
+          displayName: Debug Secure File Path
+          inputs:
             targetType: 'inline'
             script: |
-              ls -l $(Agent.TempDirectory)
+              ls -l '$(Agent.TempDirectory)'
 
         # - task : CopyFiles@2
         #   displayName: Import secure file
