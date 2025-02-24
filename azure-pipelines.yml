@@ -39,7 +39,6 @@ stages:
       #       ArtifactName: 'Windows'
             
       - job: android_job
-        # dependsOn: [windows_job]
         displayName: Android Job
         steps:
         # - template: setup_template.yml
@@ -50,20 +49,20 @@ stages:
           inputs:
             secureFile: 'seasonalbite.keystore'
 
-        # - task: Bash@3
-        #   displayName: Debug Secure File Path
-        #   inputs:
-        #      targetType: 'inline'
-        #      script: |
-        #           echo "Keystore path: '$(keystore_file.secureFilePath)'"
-        #           ls -l "$(keystore_file.secureFilePath)"
+        - task: Bash@3
+          displayName: Debug Secure File Path1
+          inputs:
+             targetType: 'inline'
+             script: |
+                  echo "Keystore path: '$(keystore_file.secureFilePath)'"
+                  ls -l "$(keystore_file.secureFilePath)"
 
-        # - task: Bash@3
-        #   displayName: Debug Secure File Path
-        #   inputs:
-        #     targetType: 'inline'
-        #     script: |
-        #       ls -l '$(Agent.TempDirectory)'
+        - task: Bash@3
+          displayName: Debug Secure File Path2
+          inputs:
+            targetType: 'inline'
+            script: |
+              ls -l '$(Agent.TempDirectory)'
 
         - task : CopyFiles@2
           displayName: Import secure file
@@ -73,15 +72,22 @@ stages:
             TargetFolder: $(Build.SourcesDirectory)
 
         - task: Bash@3
-          displayName: Build Android MAUI app
+          displayName: Debug Import File Path
           inputs:
             targetType: 'inline'
             script: |
-              dotnet restore SeasonalBite.csproj
-              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$(Build.SourcesDirectory)/seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
+              ls -l $(Build.SourcesDirectory)
 
-        - task: PublishBuildArtifacts@1
-          displayName: Publish Android app to artifacts
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
-            ArtifactName: 'Android'
+        # - task: Bash@3
+        #   displayName: Build Android MAUI app
+        #   inputs:
+        #     targetType: 'inline'
+        #     script: |
+        #       dotnet restore SeasonalBite.csproj
+        #       dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$(Build.SourcesDirectory)/seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
+
+        # - task: PublishBuildArtifacts@1
+        #   displayName: Publish Android app to artifacts
+        #   inputs:
+        #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
+        #     ArtifactName: 'Android'
