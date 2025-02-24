@@ -19,24 +19,24 @@ stages:
       name: Azure Pipelines
       vmImage: windows-latest
     jobs:
-      - job: windows_job
-        displayName: Windows Job
-        steps:
-        # - template: setup_template.yml
+      # - job: windows_job
+      #   displayName: Windows Job
+      #   steps:
+      #   # - template: setup_template.yml
 
-        - task: Bash@3
-          displayName: Build Windows MAUI app
-          inputs:
-            targetType: 'inline'
-            script: |
-              dotnet restore SeasonalBite.csproj
-              dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
+      #   - task: Bash@3
+      #     displayName: Build Windows MAUI app
+      #     inputs:
+      #       targetType: 'inline'
+      #       script: |
+      #         dotnet restore SeasonalBite.csproj
+      #         dotnet publish SeasonalBite.csproj -f net8.0-windows10.0.19041.0 -c Release --output '$(Build.ArtifactStagingDirectory)/Windows' 
 
-        - task: PublishBuildArtifacts@1
-          displayName: Publish Window app to artifacts
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Windows' 
-            ArtifactName: 'Windows'
+      #   - task: PublishBuildArtifacts@1
+      #     displayName: Publish Window app to artifacts
+      #     inputs:
+      #       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Windows' 
+      #       ArtifactName: 'Windows'
             
       - job: android_job
         # dependsOn: [windows_job]
@@ -49,6 +49,14 @@ stages:
           displayName: Download Keystore File
           inputs:
             secureFile: 'seasonalbite.keystore'
+
+        - task: Bash@3
+          displayName: Debug Secure File Path
+          inputs:
+            targetType: 'inline'
+            script: |
+              echo "Keystore path: $(keystore_file.secureFilePath)"
+              ls -l $(keystore_file.secureFilePath)
 
         # - task : CopyFiles@2
         #   displayName: Import secure file
@@ -78,7 +86,7 @@ stages:
             targetType: 'inline'
             script: |
               dotnet restore SeasonalBite.csproj
-              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$(Agent.TempDirectory)/seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
+              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$(keystore_file.secureFilePath)/seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
 
         - task: PublishBuildArtifacts@1
           displayName: Publish Android app to artifacts
