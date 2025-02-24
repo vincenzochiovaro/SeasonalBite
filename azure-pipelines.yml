@@ -55,7 +55,7 @@ stages:
           inputs:
             SourceFolder: $(Agent.TempDirectory)
             Contents: 'seasonalbite.keystore'
-            TargetFolder: SeasonalBite.csproj
+            TargetFolder: $(Build.SourcesDirectory)
 
         - task: Bash@3
           displayName: Build Android MAUI app
@@ -63,7 +63,7 @@ stages:
             targetType: 'inline'
             script: |
               dotnet restore SeasonalBite.csproj
-              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
+              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$(Build.SourcesDirectory)/seasonalbite.keystore -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
 
         - task: PublishBuildArtifacts@1
           displayName: Publish Android app to artifacts
