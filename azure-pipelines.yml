@@ -41,7 +41,7 @@ stages:
       - job: android_job
         displayName: Android Job
         steps:
-        # - template: setup_template.yml
+        - template: setup_template.yml
 
         - task: DownloadSecureFile@1
           name: keystore_file
