@@ -73,13 +73,13 @@ stages:
         - task: Bash@3
           displayName: Build Android MAUI app
           inputs:
-              targetType: 'inline'
-              script: |
+            targetType: 'inline'
+            script: |
                 dotnet restore SeasonalBite.csproj
                 dotnet publish SeasonalBite.csproj -f net8.0-android -c Release \
-                  --output $(Build.ArtifactStagingDirectory)/Android \
+                  --output "$(Build.ArtifactStagingDirectory)/Android" \
                   -p:AndroidKeyStore=true \
-                  -p:AndroidSigningKeyStore=$(Build.SourcesDirectory)/seasonalbite.keystore \
+                  -p:AndroidSigningKeyStore="$(Build.SourcesDirectory)/seasonalbite.keystore" \
                   -p:AndroidSigningKeyAlias=seasonalbite \
                   -p:AndroidSigningKeyPass=$(keystore_password) \
                   -p:AndroidSigningStorePass=$(keystore_password)
