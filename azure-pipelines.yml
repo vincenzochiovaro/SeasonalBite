@@ -41,7 +41,7 @@ stages:
       - job: android_job
         displayName: Android Job
         steps:
-        # - template: setup_template.yml
+        - template: setup_template.yml
 
         - task: DownloadSecureFile@1
           name: keystore_file
@@ -63,24 +63,15 @@ stages:
             script: 'ls'
 
         - task: Bash@3
-          displayName: Debug Keystore File
+          displayName: Build Android MAUI app
           inputs:
-           targetType: 'inline'
-           script: |
-            echo "Keystore path: $(Build.SourcesDirectory)/seasonalbite.keystore"
-            ls -l "$(Build.SourcesDirectory)/seasonalbite.keystore"
-            keytool -list -keystore "$(Build.SourcesDirectory)/seasonalbite.keystore" -storepass $(keystore_password)
+            targetType: 'inline'
+            script: |
+              dotnet restore SeasonalBite.csproj
+              dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="$(Build.SourcesDirectory)/seasonalbite.keystore" -p:AndroidSigningKeyAlias="seasonalbite.keystore" -p:AndroidSigningKeyPass="$(keystore_password)" -p:AndroidSigningStorePass="$(keystore_password)"
 
-        # - task: Bash@3
-        #   displayName: Build Android MAUI app
-        #   inputs:
-        #     targetType: 'inline'
-        #     script: |
-        #       dotnet restore SeasonalBite.csproj
-        #       dotnet publish SeasonalBite.csproj -f net8.0-android -c Release --output '$(Build.ArtifactStagingDirectory)/Android'  -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="$(Build.SourcesDirectory)/seasonalbite.keystore" -p:AndroidSigningKeyAlias=seasonalbite.keystore -p:AndroidSigningKeyPass=$(keystore_password) -p:AndroidSigningStorePass=$(keystore_password)
-
-        # - task: PublishBuildArtifacts@1
-        #   displayName: Publish Android app to artifacts
-        #   inputs:
-        #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
-        #     ArtifactName: 'Android'
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Android app to artifacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
+            ArtifactName: 'Android'
