@@ -14,11 +14,15 @@ variables:
 
 stages:
     - stage: ios_stage
-      displayName: IOS stage
+      displayName: iOS stage
       pool:
        name: Azure Pipelines
        vmImage: macOS-latest
-
+      jobs:
+        - job: ios_job
+          displayName: iOS Job
+          steps:
+            -  template: setup_template.yml
   # - stage: windows_and_android_stage
   #   displayName: Windows and Android stage
   #   pool:
