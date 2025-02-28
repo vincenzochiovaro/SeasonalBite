@@ -23,6 +23,21 @@ stages:
           displayName: iOS Job
           steps:
             -  template: setup_template.yml
+
+            - task: Bash@3
+              displayName: Build iOS MAUI app
+              inputs:
+                targetType: 'inline'
+                script: |
+                    dotnet restore SeasonalBite.csproj
+                    dotnet publish SeasonalBite.csproj -f net8.0-ios -c Release --output '$(Build.ArtifactStagingDirectory)/iOS' 
+
+            - task: PublishBuildArtifacts@1
+              displayName: Publish iOS app to artifacts
+              inputs:
+               PathtoPublish: '$(Build.ArtifactStagingDirectory)/iOS' 
+               ArtifactName: 'iOS'
+
   # - stage: windows_and_android_stage
   #   displayName: Windows and Android stage
   #   pool:
