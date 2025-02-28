@@ -9,6 +9,13 @@ trigger:
     include:
      - main
 
+# pr:
+#  branches:
+#   include:
+#      - main
+
+
+
 variables:
   - group: SBite-PipelineVariables
 
