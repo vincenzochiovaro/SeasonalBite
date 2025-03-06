@@ -72,6 +72,8 @@ stages:
 
         - task: Bash@3
           displayName: Build Android MAUI app
+          env:
+            COCKROACH_CONN_STR: $(cockroachDbConnectionString)
           inputs:
             targetType: 'inline'
             script: |
