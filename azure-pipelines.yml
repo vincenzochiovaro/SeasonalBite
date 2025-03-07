@@ -41,53 +41,73 @@ stages:
       - job: android_job
         displayName: Android Job
         steps:
-        - template: setup_template.yml
+        # - template: setup_template.yml
 
-        - task: DownloadSecureFile@1
-          name: keystore_file
-          displayName: Download Keystore File
-          inputs:
-            secureFile: 'seasonalbite.keystore'
+        # - task: DownloadSecureFile@1
+        #   name: keystore_file
+        #   displayName: Download Keystore File
+        #   inputs:
+        #     secureFile: 'seasonalbite.keystore'
 
+        # - task: Bash@3
+        #   displayName: Move Keystore File to Build Directory
+        #   inputs:
+        #    targetType: 'inline'
+        #    script: |
+        #     mv "$(keystore_file.secureFilePath)" "$(Build.SourcesDirectory)/seasonalbite.keystore"
+
+        # - task: Bash@3
+        #   displayName: Set Keystore File Permissions
+        #   inputs:
+        #     targetType: inline
+        #     script: |
+        #       chmod 600 "$(Build.SourcesDirectory)/seasonalbite.keystore"
+        #       ls -l "$(Build.SourcesDirectory)/seasonalbite.keystore"
+
+        # - task: Bash@3
+        #   displayName: Show Current working directory
+        #   inputs:
+        #     targetType: 'inline'
+        #     script: 'ls'
+                        
         - task: Bash@3
-          displayName: Move Keystore File to Build Directory
-          inputs:
-           targetType: 'inline'
-           script: |
-            mv "$(keystore_file.secureFilePath)" "$(Build.SourcesDirectory)/seasonalbite.keystore"
-
-        - task: Bash@3
-          displayName: Set Keystore File Permissions
-          inputs:
-            targetType: inline
-            script: |
-              chmod 600 "$(Build.SourcesDirectory)/seasonalbite.keystore"
-              ls -l "$(Build.SourcesDirectory)/seasonalbite.keystore"
-
-        - task: Bash@3
-          displayName: Show Current working directory
+          displayName: Verify Environment Variable DEBUG1
+          env:
+            COCKROACH_CONN_STR: "$(cockroachDbConnectionString)"
           inputs:
             targetType: 'inline'
-            script: 'ls'
+            script: |
+              # Print first 5 chars of connection string to verify it exists without exposing the whole string
+              echo "Connection string exists and starts with: ${COCKROACH_CONN_STR:0:5}..."
 
         - task: Bash@3
-          displayName: Build Android MAUI app
+          displayName: Verify Environment Variable DEBUG2
           env:
             COCKROACH_CONN_STR: $(cockroachDbConnectionString)
           inputs:
             targetType: 'inline'
             script: |
-                dotnet restore SeasonalBite.csproj
-                dotnet publish SeasonalBite.csproj -f net8.0-android -c Release \
-                  --output "$(Build.ArtifactStagingDirectory)/Android" \
-                  -p:AndroidKeyStore=true \
-                  -p:AndroidSigningKeyStore="$(Build.SourcesDirectory)/seasonalbite.keystore" \
-                  -p:AndroidSigningKeyAlias=seasonalbite \
-                  -p:AndroidSigningKeyPass=$(keystore_password) \
-                  -p:AndroidSigningStorePass=$(keystore_password)
+              # Print first 5 chars of connection string to verify it exists without exposing the whole string
+              echo "Connection string exists and starts with: ${COCKROACH_CONN_STR:0:5}..."
 
-        - task: PublishBuildArtifacts@1
-          displayName: Publish Android app to artifacts
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
-            ArtifactName: 'Android'
+        # - task: Bash@3
+        #   displayName: Build Android MAUI app
+        #   env:
+        #     COCKROACH_CONN_STR: $(cockroachDbConnectionString)
+        #   inputs:
+        #     targetType: 'inline'
+        #     script: |
+        #         dotnet restore SeasonalBite.csproj
+        #         dotnet publish SeasonalBite.csproj -f net8.0-android -c Release \
+        #           --output "$(Build.ArtifactStagingDirectory)/Android" \
+        #           -p:AndroidKeyStore=true \
+        #           -p:AndroidSigningKeyStore="$(Build.SourcesDirectory)/seasonalbite.keystore" \
+        #           -p:AndroidSigningKeyAlias=seasonalbite \
+        #           -p:AndroidSigningKeyPass=$(keystore_password) \
+        #           -p:AndroidSigningStorePass=$(keystore_password)
+
+        # - task: PublishBuildArtifacts@1
+        #   displayName: Publish Android app to artifacts
+        #   inputs:
+        #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Android' 
+        #     ArtifactName: 'Android'
