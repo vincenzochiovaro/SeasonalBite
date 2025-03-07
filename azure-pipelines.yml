@@ -69,12 +69,16 @@ stages:
           inputs:
             targetType: 'inline'
             script: 'ls'
-
+                        
         - task: Bash@3
           displayName: Build Android MAUI app
+          env:
+            COCKROACH_CONN_STR: $(cockroachDbConnectionString)
           inputs:
             targetType: 'inline'
             script: |
+                echo '{ "COCKROACH_CONN_STR": "$(cockroachDbConnectionString)" }' > "$(Build.SourcesDirectory)/secrets.json"
+
                 dotnet restore SeasonalBite.csproj
                 dotnet publish SeasonalBite.csproj -f net8.0-android -c Release \
                   --output "$(Build.ArtifactStagingDirectory)/Android" \

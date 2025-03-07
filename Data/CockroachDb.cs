@@ -1,5 +1,4 @@
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
+using System.Text.Json;
 using Npgsql;
 using SeasonalBite.Interfaces;
 
@@ -11,17 +10,30 @@ public class CockroachDb : IDbManager
 
     public CockroachDb()
     {
-        var keyVaultUri = "https://seasonalbitevault.vault.azure.net/";
+        /// <summary>
+        /// Tries to get the connection string from environment variables first (used for Windows and iOS development).
+        /// If not found, attempts to load it from the 'secrets.json' file (used for Android development).
+        /// </summary>
 
-        var credential = new DefaultAzureCredential();
-        var client = new SecretClient(new Uri(keyVaultUri), credential);
-        var keyVaultDbConnString = client.GetSecret("CockroachDbConnectionString").Value;
-
-        _connectionString = keyVaultDbConnString.Value;
+        _connectionString = Environment.GetEnvironmentVariable("COCKROACH_CONN_STR");
 
         if (string.IsNullOrEmpty(_connectionString))
         {
-            throw new Exception("Connection string not found.");
+            try
+            {
+                using var stream = GetType().Assembly.GetManifestResourceStream("SeasonalBite.secrets.json");
+                if (stream != null)
+                {
+                    using var reader = new StreamReader(stream);
+                    var json = reader.ReadToEnd();
+                    var secrets = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    _connectionString = secrets["COCKROACH_CONN_STR"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading secrets: {ex.Message}");
+            }
         }
     }
 
