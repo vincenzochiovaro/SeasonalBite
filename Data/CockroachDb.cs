@@ -21,12 +21,12 @@ public class CockroachDb : IDbManager
         {
             try
             {
-                var secretsPath = Path.Combine(FileSystem.AppDataDirectory, "secrets.json");
-                if (File.Exists(secretsPath))
+                using var stream = GetType().Assembly.GetManifestResourceStream("SeasonalBite.secrets.json");
+                if (stream != null)
                 {
-                    var json = File.ReadAllText(secretsPath);
+                    using var reader = new StreamReader(stream);
+                    var json = reader.ReadToEnd();
                     var secrets = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-
                     _connectionString = secrets["COCKROACH_CONN_STR"];
                 }
             }
