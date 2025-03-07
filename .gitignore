@@ -6,3 +6,4 @@ riderModule.iml
 .idea/
 .DS_Store
 *.sln.dotsettings.user
+secrets.json
