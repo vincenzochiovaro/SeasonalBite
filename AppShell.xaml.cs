@@ -9,5 +9,6 @@ public partial class AppShell : Shell
         InitializeComponent();
         ShellTitle = $"SeasonalBite - {DateTime.Now:MMMM}";
         BindingContext = this;
+        
     }
 }

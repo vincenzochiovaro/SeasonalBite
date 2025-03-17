@@ -25,4 +25,18 @@ public partial class MainPage : ContentPage
 
         ListSeasonAliments.ItemsSource = seasonAliments;
     }
+    
+    private async void OnSignInClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("click");
+
+        await Shell.Current.GoToAsync("//SignIn");
+    }
+    
+    private async void OnSignUpClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("click");
+
+        await Shell.Current.GoToAsync("//SignUp");
+    }
 }

@@ -49,6 +49,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
@@ -70,11 +72,11 @@
 
     <ItemGroup>
         <Compile Remove="SeasonalBiteUnitTests\**"/>
-        <Compile Update="ViewModels\MainPage.xaml.cs">
-            <DependentUpon>MainPage.xaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
         <Compile Remove="SeasonalBiteTests\**"/>
+        <Compile Update="Views\MainPage.xaml.cs">
+          <DependentUpon>MainPage.xaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
