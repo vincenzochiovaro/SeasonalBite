@@ -1,5 +1,6 @@
 ﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using SeasonalBite.Data;
@@ -40,7 +41,8 @@ public static class MauiProgram
             Providers = new FirebaseAuthProvider[]
             {
                 new EmailProvider()
-            }
+            },
+            UserRepository = new FileUserRepository("seasonal-bite.firebaseapp.com")
 
         }));
 
