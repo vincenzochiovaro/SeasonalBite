@@ -29,11 +29,11 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-        
+
         builder.Services.AddSingleton<IDbManager, CockroachDb>();
         builder.Services.TryAddScoped<IAlimentRepository, CockroachDbRepository>();
         builder.Services.TryAddScoped<IAlimentHelper, AlimentsHelper>();
-        
+
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
             ApiKey = "AIzaSyDowsHYKgrlRuTrK4CDORHsj5iPAzhePLo",
@@ -43,18 +43,19 @@ public static class MauiProgram
                 new EmailProvider()
             },
             UserRepository = new FileUserRepository("seasonal-bite.firebaseapp.com")
-
         }));
+
+        builder.Services.AddSingleton<IFirebaseAuthService, FirebaseAuthService>();
 
         builder.Services.AddSingleton<SignInView>();
         builder.Services.AddSingleton<SignUpView>();
-        
+
         builder.Services.AddSingleton<SignInViewModel>();
         builder.Services.AddSingleton<SignUpViewModel>();
-        
+
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<AppShell>();
-        
+
         return builder.Build();
     }
 }

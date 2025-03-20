@@ -1,16 +1,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Firebase.Auth;
+using SeasonalBite.Interfaces;
 
 namespace SeasonalBite.ViewModels;
 
 public partial class SignUpViewModel : ObservableObject
 {
-    private readonly FirebaseAuthClient _firebaseAuth;
+    private readonly IFirebaseAuthService _firebaseAuthService;
 
-    public SignUpViewModel(FirebaseAuthClient firebaseAuthClient)
+    public SignUpViewModel(IFirebaseAuthService firebaseAuthService)
     {
-        _firebaseAuth = firebaseAuthClient;
+        _firebaseAuthService = firebaseAuthService;
     }
 
     [ObservableProperty] private string _email;
@@ -18,18 +18,18 @@ public partial class SignUpViewModel : ObservableObject
     [ObservableProperty] private string _username;
 
     [ObservableProperty] private string _password;
-    
+
     [RelayCommand]
     private async Task SignUp()
     {
         try
         {
             Console.WriteLine("inside SignUp method");
-            await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(email: _email, password: _password,
-                displayName: _username);
+            await _firebaseAuthService.CreateUserAsync(email: _email, password: _password, username: _username);
 
-            await Task.Delay(5);
-            await Shell.Current.GoToAsync("//SignIn");
+            await Task.Delay(3);
+
+            await Shell.Current.GoToAsync("//MainPage");
         }
         catch (Exception ex)
         {
@@ -38,7 +38,7 @@ public partial class SignUpViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task NavigateToSignIn()
+    private async Task NavigateSignIn()
     {
         await Shell.Current.GoToAsync("//SignIn");
     }

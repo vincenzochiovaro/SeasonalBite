@@ -10,11 +10,6 @@ public class CockroachDb : IDbManager
 
     public CockroachDb()
     {
-        /// <summary>
-        /// Tries to get the connection string from environment variables first (used for Windows and iOS development).
-        /// If not found, attempts to load it from the 'secrets.json' file (used for Android development).
-        /// </summary>
-
         _connectionString = Environment.GetEnvironmentVariable("COCKROACH_CONN_STR");
 
         if (string.IsNullOrEmpty(_connectionString))

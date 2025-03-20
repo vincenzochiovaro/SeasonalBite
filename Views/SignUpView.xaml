@@ -5,11 +5,12 @@
              x:Class="SeasonalBite.Views.SignUpView">
 
     <VerticalStackLayout>
-
+<Label
+    Text="WELCOME TO SIGN UP"/>
         <Entry Text="{Binding Email}" />
         <Entry Text="{Binding Username}" />
         <Entry Text="{Binding Password}" IsPassword="True" />
-        <Button Command="{Binding SignUpCommand}" Text="Sign Up Command" />
+        <Button Command="{Binding SignUpCommand}" Text="Sign Up" />
         <Button Command="{Binding NavigateSignInCommand}" Text="Already have an account? Sign In" />
 
     </VerticalStackLayout>
