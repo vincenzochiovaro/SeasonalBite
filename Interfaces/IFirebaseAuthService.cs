@@ -9,6 +9,4 @@ public interface IFirebaseAuthService
     public Task SignInAsync(string email, string password);
 
     public Task CreateUserAsync(string email, string password, string username);
-
-    // TODO IMPLEMENT SIGN OUT
 }

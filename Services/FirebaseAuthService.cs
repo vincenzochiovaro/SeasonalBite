@@ -6,16 +6,16 @@ namespace SeasonalBite.Services;
 
 public class FirebaseAuthService : IFirebaseAuthService, INotifyPropertyChanged
 {
-    private readonly FirebaseAuthClient _firebaseAuth;
+    private readonly FirebaseAuthClient _firebaseAuthClient;
     private string _username;
 
-    public FirebaseAuthService(FirebaseAuthClient firebaseAuth)
+    public FirebaseAuthService(FirebaseAuthClient firebaseAuthClient)
     {
-        _firebaseAuth = firebaseAuth;
+        _firebaseAuthClient = firebaseAuthClient;
         
-        if (_firebaseAuth.User != null)
+        if (_firebaseAuthClient.User != null)
         {
-            Username = _firebaseAuth.User.Info.DisplayName;
+            Username = _firebaseAuthClient.User.Info.DisplayName;
         }
     }
 
@@ -32,7 +32,7 @@ public class FirebaseAuthService : IFirebaseAuthService, INotifyPropertyChanged
         }
     }
 
-    public bool IsSignedIn => _firebaseAuth.User != null;
+    public bool IsSignedIn => _firebaseAuthClient.User != null;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -43,13 +43,13 @@ public class FirebaseAuthService : IFirebaseAuthService, INotifyPropertyChanged
 
     public async Task SignInAsync(string email, string password)
     {
-        var userCredential = await _firebaseAuth.SignInWithEmailAndPasswordAsync(email, password);
+        var userCredential = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
         Username = userCredential.User.Info.DisplayName;
     }
 
     public async Task CreateUserAsync(string email, string password, string username)
     {
-        var userCredential = await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(email, password, username);
+        var userCredential = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
         Username = userCredential.User.Info.DisplayName;
     }
 }

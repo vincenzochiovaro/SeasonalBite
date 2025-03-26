@@ -4,7 +4,7 @@ using SeasonalBite.Interfaces;
 using SeasonalBite.Models;
 using SeasonalBite.Services;
 
-namespace SeasonalBiteUnitTests;
+namespace SeasonalBiteUnitTests.IntegrationTests;
 
 public class CockroachDbRepositoryTests
 {
