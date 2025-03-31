@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Firebase.Auth;
 using SeasonalBite.Interfaces;
 
 namespace SeasonalBite.ViewModels;
@@ -16,7 +17,8 @@ public partial class SignInViewModel : ObservableObject
     [ObservableProperty] private string _email;
 
     [ObservableProperty] private string _password;
-
+    
+    [ObservableProperty] private string _errorMessage;
 
     [RelayCommand]
     private async Task SignIn()
@@ -29,9 +31,19 @@ public partial class SignInViewModel : ObservableObject
 
             await Shell.Current.GoToAsync("//MainPage");
         }
-        catch (Exception ex)
+        catch (FirebaseAuthException ex)
         {
-            Console.WriteLine(ex.Message);
+            if (ex.Reason.ToString() == "Unknown")
+            {
+                ErrorMessage = "Invalid Credentials";
+                await Task.Delay(3000);
+                ErrorMessage = "";
+                return;
+            }
+            
+            ErrorMessage = ex.Reason.ToString();
+            await Task.Delay(3000);
+            ErrorMessage = "";
         }
     }
 
