@@ -22,6 +22,8 @@ public partial class SignUpViewModel : ObservableObject
 
     [ObservableProperty] private string _errorMessage;
 
+    [ObservableProperty] private string _lastErrorMessage;
+
     [RelayCommand]
     private async Task SignUp()
     {
@@ -42,6 +44,8 @@ public partial class SignUpViewModel : ObservableObject
             if (ex.Message == "InvalidUsername")
             {
                 ErrorMessage = "Username must be at least 3 characters long.";
+                LastErrorMessage = "Username must be at least 3 characters long.";
+
                 await Task.Delay(3000);
                 ErrorMessage = "";
                 return;
@@ -50,11 +54,14 @@ public partial class SignUpViewModel : ObservableObject
             if (ex.Reason.ToString() == "Unknown")
             {
                 ErrorMessage = "Please fill in all required fields";
+                LastErrorMessage = "Please fill in all required fields";
+
                 await Task.Delay(3000);
                 ErrorMessage = "";
                 return;
             }
 
+            LastErrorMessage = ex.Reason.ToString();
             ErrorMessage = ex.Reason.ToString();
             await Task.Delay(3000);
             ErrorMessage = "";
