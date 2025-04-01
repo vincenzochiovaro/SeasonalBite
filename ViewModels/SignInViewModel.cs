@@ -28,7 +28,10 @@ public partial class SignInViewModel : ObservableObject
         try
         {
             await _firebaseAuthService.SignInAsync(email: _email, password: _password);
-
+            
+            Email = string.Empty;
+            Password = string.Empty;
+            
             await Task.Delay(1);
 
             await Shell.Current.GoToAsync("//MainPage");
@@ -55,5 +58,11 @@ public partial class SignInViewModel : ObservableObject
     private async Task NavigateSignUp()
     {
         await Shell.Current.GoToAsync("//SignUp");
+    }
+    
+    [RelayCommand]
+    private async Task Guest()
+    {
+        await Shell.Current.GoToAsync("//MainPage");
     }
 }

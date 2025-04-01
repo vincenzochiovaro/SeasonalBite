@@ -32,9 +32,20 @@ public partial class MainPage : ContentPage
 
     private async void OnGenerateRecipeClickedAI(object sender, EventArgs e)
     {
-        // IS THE user signed in? if yes go to AI page with the aliment otherwise go to sign in
+
+        if (_firebaseAuthService.Username == null)
+        {
+            await Shell.Current.GoToAsync("//SignIn");
+            return;
+        }
+
         var aliment = ((Button)sender).CommandParameter as Aliment;
 
-        await Shell.Current.GoToAsync("//SignIn");
+        await Application.Current.MainPage.DisplayAlert(
+            "Oops, Not Yet! 🤖",
+            $"I see you're curious about {aliment.Name}... but hold on! The AI is still in the kitchen, " +
+            $"probably arguing with a virtual chef. 🍳 Try again in a few days—good things take time! 🚀",
+            "Got it!"
+        );
     }
 }
