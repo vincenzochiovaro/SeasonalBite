@@ -17,8 +17,10 @@ public partial class SignInViewModel : ObservableObject
     [ObservableProperty] private string _email;
 
     [ObservableProperty] private string _password;
-    
+
     [ObservableProperty] private string _errorMessage;
+
+    [ObservableProperty] private string _lastErrorMessage;
 
     [RelayCommand]
     private async Task SignIn()
@@ -35,12 +37,14 @@ public partial class SignInViewModel : ObservableObject
         {
             if (ex.Reason.ToString() == "Unknown")
             {
+                LastErrorMessage = "Invalid Credentials";
                 ErrorMessage = "Invalid Credentials";
                 await Task.Delay(3000);
                 ErrorMessage = "";
                 return;
             }
-            
+
+            LastErrorMessage = ex.Reason.ToString();
             ErrorMessage = ex.Reason.ToString();
             await Task.Delay(3000);
             ErrorMessage = "";
