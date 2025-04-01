@@ -8,7 +8,7 @@
 
     <VerticalStackLayout Spacing="20" VerticalOptions="Center">
 
-        <Label Text="SeasonalBite 🥑"
+        <Label Text="Login to your account"
                TextColor="#4B2A70"
                FontFamily="MontserratBold"
                FontSize="32"
@@ -48,7 +48,7 @@
                HorizontalOptions="Center"
                WidthRequest="300" />
 
-        <Button Text="LOGIN"
+        <Button Text="Login"
                 Command="{Binding SignInCommand}"
                 BackgroundColor="#A8E890"
                 TextColor="#1A1A1A"
@@ -58,7 +58,7 @@
                 HorizontalOptions="Center"
                 WidthRequest="300" />
 
-        <Button Text="CREATE ACCOUNT"
+        <Button Text="Create Account"
                 Command="{Binding NavigateSignUpCommand}"
                 TextColor="#4B2A70"
                 BackgroundColor="Transparent"
@@ -69,7 +69,7 @@
                 HorizontalOptions="Center"
                 WidthRequest="300" />
 
-        <Label Text="Continue as guest 🏠"
+        <Label Text="Continue as Guest 🏠"
                TextColor="#4B2A70"
                Margin="10"
                FontSize="16"

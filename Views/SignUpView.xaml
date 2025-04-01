@@ -2,16 +2,85 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SeasonalBite.Views.SignUpView">
+             x:Class="SeasonalBite.Views.SignUpView"
+             BackgroundColor="#F9F9F9"
+             Padding="20,40">
 
-    <VerticalStackLayout>
-<Label
-    Text="WELCOME TO SIGN UP"/>
-        <Entry Text="{Binding Email}" />
-        <Entry Text="{Binding Username}" />
-        <Entry Text="{Binding Password}" IsPassword="True" />
-        <Button Command="{Binding SignUpCommand}" Text="Sign Up" />
-        <Button Command="{Binding NavigateSignInCommand}" Text="Already have an account? Sign In" />
+    <VerticalStackLayout Spacing="20" VerticalOptions="Center">
 
+        <Label Text="Registration"
+               TextColor="#4B2A70"
+               FontFamily="MontserratBold"
+               FontSize="32"
+               Margin="0,0,0,30"
+               HorizontalOptions="Center" />
+
+        <Label Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               FontSize="14"
+               HorizontalOptions="Center"
+               IsVisible="{Binding ErrorMessage}" />
+
+        <Entry Text="{Binding Email}"
+               Placeholder="Email"
+               PlaceholderColor="#808080"
+               TextColor="#333333"
+               BackgroundColor="#FFFFFF"
+               FontSize="14"
+               HeightRequest="50"
+               HorizontalOptions="Center"
+               WidthRequest="300" />
+
+        <Entry Text="{Binding Username}"
+               Placeholder="Username"
+               PlaceholderColor="#808080"
+               TextColor="#333333"
+               BackgroundColor="#FFFFFF"
+               FontSize="14"
+               HeightRequest="50"
+               HorizontalOptions="Center"
+               WidthRequest="300" />
+
+        <Entry Text="{Binding Password}" IsPassword="True"
+               Placeholder="Password"
+               PlaceholderColor="#808080"
+               TextColor="#333333"
+               BackgroundColor="#FFFFFF"
+               FontSize="14"
+               HeightRequest="50"
+               HorizontalOptions="Center"
+               WidthRequest="300" />
+
+        <Button Command="{Binding SignUpCommand}"
+                Text="Sign Up"
+                TextColor="#4B2A70"
+                BackgroundColor="Transparent"
+                BorderColor="#4B2A70"
+                BorderWidth="2"
+                CornerRadius="25"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                WidthRequest="300" />
+
+        <Button Command="{Binding NavigateSignInCommand}"
+                Text="Already have an account? Sign In"
+                BackgroundColor="#A8E890"
+                TextColor="#1A1A1A"
+                FontFamily="MontserratSemiBold"
+                CornerRadius="25"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                WidthRequest="300" />
+
+        <Label Text="Continue as Guest 🏠"
+               TextColor="#4B2A70"
+               Margin="10"
+               FontSize="16"
+               FontAttributes="Italic"
+               HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GuestCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
     </VerticalStackLayout>
 </ContentPage>
