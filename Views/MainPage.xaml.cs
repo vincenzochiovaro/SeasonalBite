@@ -29,23 +29,4 @@ public partial class MainPage : ContentPage
 
         ListSeasonAliments.ItemsSource = seasonAliments;
     }
-
-    private async void OnGenerateRecipeClickedAI(object sender, EventArgs e)
-    {
-
-        if (_firebaseAuthService.Username == null)
-        {
-            await Shell.Current.GoToAsync("//SignIn");
-            return;
-        }
-
-        var aliment = ((Button)sender).CommandParameter as Aliment;
-
-        await Application.Current.MainPage.DisplayAlert(
-            "Oops, Not Yet! 🤖",
-            $"I see you're curious about {aliment.Name}... but hold on! The AI is still in the kitchen, " +
-            $"probably arguing with a virtual chef. 🍳 Try again in a few days—good things take time! 🚀",
-            "Got it!"
-        );
-    }
 }

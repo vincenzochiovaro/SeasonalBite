@@ -48,17 +48,6 @@
                                        FontSize="14"
                                        TextColor="#808080" />
                             </VerticalStackLayout>
-
-                            <Button Grid.Column="2"
-                                    Text="AI"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    CornerRadius="20"
-                                    BackgroundColor="#A8E890"
-                                    TextColor="SaddleBrown"
-                                    FontAttributes="Bold"
-                                    Clicked="OnGenerateRecipeClickedAI"
-                                    CommandParameter="{Binding}" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
