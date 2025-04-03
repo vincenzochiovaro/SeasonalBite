@@ -34,7 +34,11 @@ public partial class SignUpViewModel : ObservableObject
                 throw new FirebaseAuthException("InvalidUsername", new AuthErrorReason());
 
             await _firebaseAuthService.CreateUserAsync(email: _email, password: _password, username: _username);
-
+            
+            Email = string.Empty;
+            Password = string.Empty;
+            Username = string.Empty;
+            
             await Task.Delay(3);
 
             await Shell.Current.GoToAsync("//MainPage");
@@ -72,5 +76,11 @@ public partial class SignUpViewModel : ObservableObject
     private async Task NavigateSignIn()
     {
         await Shell.Current.GoToAsync("//SignIn");
+    }
+    
+    [RelayCommand]
+    private async Task Guest()
+    {
+        await Shell.Current.GoToAsync("//MainPage");
     }
 }
