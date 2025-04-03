@@ -7,7 +7,7 @@
 
     <VerticalStackLayout Spacing="20" VerticalOptions="FillAndExpand">
 
-        <Label Text="{Binding Username, StringFormat='Logged as {0}', TargetNullValue='Logged as Guest'}"
+        <Label x:Name="myLabel"
                FontFamily="MontserratBold"
                FontSize="28"
                TextColor="#4B2A70"

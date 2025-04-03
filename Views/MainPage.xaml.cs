@@ -1,19 +1,16 @@
 ﻿using SeasonalBite.Interfaces;
-using SeasonalBite.Models;
 
 namespace SeasonalBite;
 
 public partial class MainPage : ContentPage
 {
     private readonly IAlimentHelper _alimentHelper;
-    private readonly IFirebaseAuthService _firebaseAuthService;
 
-    public MainPage(IAlimentHelper alimentHelper, IFirebaseAuthService firebaseAuthService)
+    public MainPage(IAlimentHelper alimentHelper)
     {
         InitializeComponent();
+        myLabel.Text = "Il calendario del coltivatore";
         _alimentHelper = alimentHelper;
-        _firebaseAuthService = firebaseAuthService;
-        BindingContext = _firebaseAuthService;
     }
 
     protected override async void OnAppearing()

@@ -1,4 +1,5 @@
-﻿using Firebase.Auth;
+﻿using System.Globalization;
+using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -29,6 +30,9 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+
+        CultureInfo.CurrentCulture = new CultureInfo("it-IT");
+        CultureInfo.CurrentUICulture = new CultureInfo("it-IT");
 
         builder.Services.AddSingleton<IDbManager, CockroachDb>();
         builder.Services.TryAddScoped<IAlimentRepository, CockroachDbRepository>();
