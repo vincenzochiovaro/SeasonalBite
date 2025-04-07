@@ -43,7 +43,7 @@
                                        FontAttributes="Bold"
                                        FontSize="16"
                                        TextColor="#333333" />
-                                <Label Text="{Binding DateRange}"
+                                <Label Text="Current Month o altra info"
                                        FontAttributes="Italic"
                                        FontSize="14"
                                        TextColor="#808080" />

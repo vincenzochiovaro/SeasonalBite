@@ -1,7 +1,0 @@
-[
-  { "Name": "Forced Rhubarb", "Category": "Vegetable", "FromMonth": "January", "ToMonth": "March", "FromMonthInt": 1, "ToMonthInt": 3 },
-  { "Name": "Plums", "Category": "Fruit", "FromMonth": "August", "ToMonth": "September", "FromMonthInt": 8, "ToMonthInt": 9 },
-  { "Name": "Chard", "Category": "Vegetable", "FromMonth": "June", "ToMonth": "October", "FromMonthInt": 6, "ToMonthInt": 10 },
-  { "Name": "Apples", "Category": "Fruit", "FromMonth": "September", "ToMonth": "November", "FromMonthInt": 9, "ToMonthInt": 11 },
-  { "Name": "Parsnip", "Category": "Vegetable", "FromMonth": "October", "ToMonth": "February", "FromMonthInt": 10, "ToMonthInt": 2 }
-]

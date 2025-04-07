@@ -12,11 +12,18 @@ public class CockroachDbRepository : IAlimentRepository
         _db = db;
     }
 
-    public async Task<IEnumerable<Aliment>> GetAlimentsAsync()
+    public async Task<IEnumerable<Aliment>> GetAlimentsAsync(int currentMonth)
     {
         try
         {
-            var reader = await _db.ExecuteReader("SELECT * FROM Aliments");
+            var query = $@"
+                SELECT aliment_seeds.name
+                FROM seed_sowing_months
+                JOIN aliment_seeds ON seed_sowing_months.seed_id = aliment_seeds.id
+                WHERE seed_sowing_months.sowing_month = {currentMonth};
+            ";
+
+            var reader = await _db.ExecuteReader(query);
 
             var aliments = new List<Aliment>();
 
@@ -24,12 +31,7 @@ public class CockroachDbRepository : IAlimentRepository
             {
                 var aliment = new Aliment
                 {
-                    Name = reader.GetString(reader.GetOrdinal("name")),
-                    Category = reader.GetString(reader.GetOrdinal("category")),
-                    FromMonth = reader.GetString(reader.GetOrdinal("from_month")),
-                    ToMonth = reader.GetString(reader.GetOrdinal("to_month")),
-                    FromMonthInt = reader.GetInt32(reader.GetOrdinal("from__month")),
-                    ToMonthInt = reader.GetInt32(reader.GetOrdinal("to__month")),
+                    Name = reader.GetString(reader.GetOrdinal("name"))
                 };
 
                 aliments.Add(aliment);
