@@ -28,9 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="AlimentsTestData.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      <Folder Include="UnitTests\" />
     </ItemGroup>
 
 </Project>

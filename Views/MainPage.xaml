@@ -5,15 +5,17 @@
              BackgroundColor="#F9F9F9"
              Padding="25">
 
-    <VerticalStackLayout Spacing="20" VerticalOptions="FillAndExpand">
+    <Grid RowDefinitions="Auto,*">
 
-        <Label Text="{Binding Username, StringFormat='Logged as {0}', TargetNullValue='Logged as Guest'}"
+        <Label x:Name="MyLabel"
                FontFamily="MontserratBold"
                FontSize="28"
                TextColor="#4B2A70"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center"
+               Grid.Row="0" />
 
         <CollectionView x:Name="ListSeasonAliments"
+                        Grid.Row="1"
                         ItemsSource="{Binding Aliments}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
@@ -30,40 +32,33 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0"
-                                   Source="{Binding ImageUrl}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="70"
-                                   WidthRequest="70"
-                                   Margin="5" />
+                            <Frame Grid.Column="0"
+                                   CornerRadius="15"
+                                   Padding="0"
+                                   IsClippedToBounds="True"
+                                   HeightRequest="80"
+                                   WidthRequest="80">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       BackgroundColor="#E0E0E0" />
+                            </Frame>
 
                             <VerticalStackLayout Grid.Column="1"
                                                  VerticalOptions="Center">
                                 <Label Text="{Binding Name}"
                                        FontAttributes="Bold"
-                                       FontSize="16"
+                                       FontSize="20"
                                        TextColor="#333333" />
-                                <Label Text="{Binding DateRange}"
+                                <Label Text="Coltivare a campo aperto"
                                        FontAttributes="Italic"
                                        FontSize="14"
                                        TextColor="#808080" />
                             </VerticalStackLayout>
-
-                            <Button Grid.Column="2"
-                                    Text="AI"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    CornerRadius="20"
-                                    BackgroundColor="#A8E890"
-                                    TextColor="SaddleBrown"
-                                    FontAttributes="Bold"
-                                    Clicked="OnGenerateRecipeClickedAI"
-                                    CommandParameter="{Binding}" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

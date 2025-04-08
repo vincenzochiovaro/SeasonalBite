@@ -14,28 +14,7 @@ public class AlimentsHelper : IAlimentHelper
 
     public async Task<IEnumerable<Aliment>> FilterAlimentsInSeason(int currentMonth)
     {
-        var allAliments = await _alimentRepository.GetAlimentsAsync();
-
-        var alimentsInSeason = new List<Aliment>();
-
-        foreach (var aliment in allAliments)
-        {
-            if (aliment.FromMonthInt <= aliment.ToMonthInt)
-            {
-                if (currentMonth >= aliment.FromMonthInt && currentMonth <= aliment.ToMonthInt)
-                {
-                    alimentsInSeason.Add(aliment);
-                }
-            }
-            else
-            {
-                if (currentMonth >= aliment.FromMonthInt || currentMonth <= aliment.ToMonthInt)
-                {
-                    alimentsInSeason.Add(aliment);
-                }
-            }
-        }
-
-        return alimentsInSeason;
+        var allAliments = await _alimentRepository.GetAlimentsAsync(currentMonth);
+        return allAliments;
     }
 }
