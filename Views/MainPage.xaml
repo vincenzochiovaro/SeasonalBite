@@ -5,15 +5,17 @@
              BackgroundColor="#F9F9F9"
              Padding="25">
 
-    <VerticalStackLayout Spacing="20" VerticalOptions="FillAndExpand">
+    <Grid RowDefinitions="Auto,*">
 
-        <Label x:Name="myLabel"
+        <Label x:Name="MyLabel"
                FontFamily="MontserratBold"
                FontSize="28"
                TextColor="#4B2A70"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center"
+               Grid.Row="0" />
 
         <CollectionView x:Name="ListSeasonAliments"
+                        Grid.Row="1"
                         ItemsSource="{Binding Aliments}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
@@ -30,20 +32,24 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0"
-                                   Source="{Binding ImageUrl}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="70"
-                                   WidthRequest="70"
-                                   Margin="5" />
+                            <Frame Grid.Column="0"
+                                   CornerRadius="15"
+                                   Padding="0"
+                                   IsClippedToBounds="True"
+                                   HeightRequest="80"
+                                   WidthRequest="80">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       BackgroundColor="#E0E0E0" />
+                            </Frame>
 
                             <VerticalStackLayout Grid.Column="1"
                                                  VerticalOptions="Center">
                                 <Label Text="{Binding Name}"
                                        FontAttributes="Bold"
-                                       FontSize="16"
+                                       FontSize="20"
                                        TextColor="#333333" />
-                                <Label Text="Current Month o altra info"
+                                <Label Text="Coltivare a campo aperto"
                                        FontAttributes="Italic"
                                        FontSize="14"
                                        TextColor="#808080" />
@@ -54,5 +60,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
