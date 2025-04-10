@@ -10,6 +10,8 @@
         <Label x:Name="MyLabel"
                FontFamily="MontserratBold"
                FontSize="28"
+               Padding="15"
+               Margin="5"
                TextColor="#4B2A70"
                HorizontalOptions="Center"
                Grid.Row="0" />
