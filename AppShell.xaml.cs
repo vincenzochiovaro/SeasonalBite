@@ -9,8 +9,6 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
-        var month = $"{DateTime.Now:MMMM}";
-        ShellTitle = $"SeasonalBite - " + char.ToUpper(month[0]) + month[1..] + "/" +DateTime.Now.Year; ;
         BindingContext = this;
         
         Routing.RegisterRoute("SignIn", typeof(SignInView));
