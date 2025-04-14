@@ -17,7 +17,7 @@
   <li>🎨 Enhanced user experience improvements</li>
   
 </ul>
-<p>If you're interested in helping expand regional data or improve functionalities/design, please contact me.</p>
+<p>If you're interested in helping expand regional data or improve functionalities/design, <a href="https://www.linkedin.com/in/vincenzo-chiovaro-22258a176/">please contact me </a></p>
 
 <h2>Tests and Deployment Pipeline</h2>
 <p>SeasonalBite maintains code quality through:</p>
@@ -26,4 +26,4 @@
   <li>🚀 Azure CI/CD pipeline for automated Android builds (AAB/APK)</li>
 </ul>
 
- <h2>License</h2> <p>This project is licensed under the MIT License, for details please refer to the LICENSE file in the repository.</p>
+ <h2>License</h2> <p>This project is licensed under the MIT License.</p>
