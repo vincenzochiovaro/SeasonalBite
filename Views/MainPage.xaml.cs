@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
     public MainPage(IAlimentHelper alimentHelper)
     {
         InitializeComponent();
-        MyLabel.Text = "La tua guida mese per mese";
+        MyLabel.Text = $"Coltivazioni di {DateTime.Now:MMMM}";
         _alimentHelper = alimentHelper;
     }
 
